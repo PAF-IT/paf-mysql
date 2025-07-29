@@ -3,7 +3,11 @@ FROM mysql:latest
 
 # Initialize database, set privileges
 ADD init/data-playground.sql /docker-entrypoint-initdb.d/data.sql
-ADD init/privileges.sql /zdocker-entrypoint-initdb.d/privileges.sql
+ADD init/privileges.sh /docker-entrypoint-initdb.d/privileges.sh
+
+# Make sure the shell script is executable
+RUN chmod +x /docker-entrypoint-initdb.d/privileges.sh
+
 
 # Expose port 3306 to allow connections to the database
 EXPOSE 3306
